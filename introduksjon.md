@@ -3,32 +3,82 @@ Trafikkdata med R
 Snorre Hansen
 17 februar 2019
 
-Introduksjon til trafikkdata med R
-==================================
+-   [Installasjon av R](#installasjon-av-r)
+-   [Ekstra pakker](#ekstra-pakker)
+-   [Filformat og prosjekter](#filformat-og-prosjekter)
+-   [Trafikkdataanalyser](#trafikkdataanalyser)
+    -   [Råpasseringer](#råpasseringer)
+    -   [Kontrollerte passeringer](#kontrollerte-passeringer)
+    -   [Timetrafikk](#timetrafikk)
+-   [Hente data fra trafikkdata-APIet](#hente-data-fra-trafikkdata-apiet)
 
-Innhold
+Installasjon av R
+-----------------
 
-Installasjon
-------------
+Installer siste versjon av R fra [R Project](https://www.r-project.org/). Anbefaler å bruke [RStudio](https://www.rstudio.com/).
 
-Installer siste versjon av R fra [R Project](https://www.r-project.org/).
+Ekstra pakker
+-------------
 
-Basis-R og ekstra pakker
-------------------------
+Basisversjoen av R inneholder mange muligheter, men med noen tilleggspakker blir alt så mye bedre og enklere. Her er de jeg bruker:
+
+-   [tidyverse](https://www.tidyverse.org/)
+-   jsonlite
+
+For å installere pakker, bruk installeringsfunksjonen i RStudio. Sørg for å holde pakkene oppdatert ved å sjekke etter nye versjoner innimellom.
+
+For å ta i bruk pakkene i en R-fil,
+
+### Litt om pakkene
+
+**Tidyverse** er en samling pakker for blant annet manipulering av tabeller, formattering av tid og grafer.
+
+**jsonlite** gjør det enklere å lese inn data på JSON-format. Dette får vi bruk for ved henting av data fra API-et.
+
+### Piping
+
+Piping - hva er det!? Programkommandoer blir lettere menneskelesbare ved bruk av piping. Tidyverse bruker %&gt;% som pipesymbol. Den fungerer sånn:
+
+    x %>% f() er det samme som f(x)
+
+Mer om dette i [magrittr-pakken](https://magrittr.tidyverse.org/), som er en del av Tidyverse.
+
+Filformat og prosjekter
+-----------------------
+
+I R kan vi skrive analysene i ulike formater:
+
+-   R-skript
+-   Markdown
+-   Notebook
+
+Den mest brukervennlige for vårt formål er nok Notebook. Åpne RStudio og lag en Notebook-fil.
+
+Det er lurt å lage et eget prosjekt i RStudio som samler alle filer tilhørende analysen vi skal gjennomføre. Lagre derfor alle filer som tilhører prosjektet, inkludert CSV-filer, i den samme mappen.
 
 Trafikkdataanalyser
 ===================
 
-Vi kan lese inn CSV-filer til R.
+Vi kan lese inn CSV-filer til R. Basert på innholdet, kan vi finne ut masse interessant!
 
 Råpasseringer
 -------------
 
+Fra Datainn kan vi gjøre Exceleksport. Da får vi råpasseringer. For å lese inn en navngitt CSV-fil, gjør vi slik:
+
+    innlest <- read.csv2("filnavn.csv")
+
+I R har vi da fått en "data.frame" som heter "innlest".
+
 Kontrollerte passeringer
 ------------------------
+
+Via Kibana kan vi eksportere CSV-filer med kontrollerte passeringer.
 
 Timetrafikk
 -----------
 
-Døgntrafikk
------------
+Fra trafikkdata.no kan vi eksportere CSV-filer med ulike produkter. Mest relevant for analyser er time- og døgntrafikk.
+
+Hente data fra trafikkdata-APIet
+================================
