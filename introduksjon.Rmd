@@ -2,31 +2,35 @@
 title: "Trafikkdata med R"
 author: "Snorre Hansen"
 date: "17 februar 2019"
-output: github_document
+output: 
+  github_document:
+    number_sections: true
 ---
-
-
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 # Introduksjon til trafikkdata med R
 
 Innhold
 
 ## Installasjon
-Installer siste versjon av R fra [R Project](https://www.r-project.org/).
+Installer siste versjon av R fra [R Project](https://www.r-project.org/). Anbefaler å bruke [RStudio](https://www.rstudio.com/).
 
 ## Basis-R og ekstra pakker
+Basisversjoen av R inneholder mange muligheter, men med noen tilleggspakker blir alt så mye bedre og enklere. Her er de jeg bruker:
+
+* [tidyverse](https://www.tidyverse.org/)
+* jsonlite
 
 # Trafikkdataanalyser
-Vi kan lese inn CSV-filer til R.
+Vi kan lese inn CSV-filer til R. Basert på innholdet, kan vi finne ut masse interessant!
 
 ## Råpasseringer
+Fra Datainn kan vi gjøre Exceleksport. Da får vi råpasseringer.
 
 ## Kontrollerte passeringer
+Via Kibana kan vi eksportere CSV-filer med kontrollerte passeringer.
 
 ## Timetrafikk
+Fra trafikkdata.no kan vi eksportere CSV-filer med ulike produkter. Mest relevant for analyser er time- og døgntrafikk.
 
-## Døgntrafikk
+# Hente data fra trafikkdata-APIet
+
