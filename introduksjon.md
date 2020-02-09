@@ -1,84 +1,106 @@
 Trafikkdata med R
 ================
 Snorre Hansen
-17 februar 2019
+10 februar 2020
 
--   [Installasjon av R](#installasjon-av-r)
--   [Ekstra pakker](#ekstra-pakker)
--   [Filformat og prosjekter](#filformat-og-prosjekter)
--   [Trafikkdataanalyser](#trafikkdataanalyser)
-    -   [Råpasseringer](#råpasseringer)
-    -   [Kontrollerte passeringer](#kontrollerte-passeringer)
-    -   [Timetrafikk](#timetrafikk)
--   [Hente data fra trafikkdata-APIet](#hente-data-fra-trafikkdata-apiet)
+  - [Installasjon av R](#installasjon-av-r)
+  - [Triks](#triks)
+  - [Filformat og prosjekter](#filformat-og-prosjekter)
+  - [Les mer](#les-mer)
+  - [Trafikkdataanalyser](#trafikkdataanalyser)
+  - [Hente data fra
+    trafikkdata-APIet](#hente-data-fra-trafikkdata-apiet)
+      - [Timetrafikk](#timetrafikk)
 
-Installasjon av R
------------------
+## Installasjon av R
 
-Installer siste versjon av R fra [R Project](https://www.r-project.org/). Anbefaler å bruke [RStudio](https://www.rstudio.com/).
+Installer siste versjon av R fra [R
+Project](https://www.r-project.org/).
 
-Ekstra pakker
--------------
+Installer så [RStudio](https://www.rstudio.com/).
 
-Basisversjoen av R inneholder mange muligheter, men med noen tilleggspakker blir alt så mye bedre og enklere. Her er de jeg bruker:
+### Ekstra pakker
 
--   [tidyverse](https://www.tidyverse.org/)
--   jsonlite
+Basisversjoen av R inneholder mange muligheter, men noen tilleggspakker
+er lurt. Her er de jeg bruker:
 
-For å installere pakker, bruk installeringsfunksjonen i RStudio. Sørg for å holde pakkene oppdatert ved å sjekke etter nye versjoner innimellom.
+  - [tidyverse](https://www.tidyverse.org/): data i tabeller, endre,
+    aggregere, plotte m.m.
+  - readxl: for å lese inne Excelark
+  - lubridate: formatere dato og tid
+  - DataExplorer: utforske datasett
 
-For å ta i bruk pakkene i en R-fil,
+Litt senere:
 
-### Litt om pakkene
+  - jsonlite: formatere json
+  - flextable: fine tabeller i “utskrift” (byindeksrapport)
+  - ghql: for GraphQL-api (trafikkdata)
+  - knitr: lage rapporter
+  - leaflet: kart
+  - sf: geodata (linjer, ploygoner)
 
-**Tidyverse** er en samling pakker for blant annet manipulering av tabeller, formattering av tid og grafer.
+For å installere pakker, bruk installeringsfunksjonen i RStudio. Pakkene
+må manuelt oppdateres ved å sjekke etter nye versjoner.
 
-**jsonlite** gjør det enklere å lese inn data på JSON-format. Dette får vi bruk for ved henting av data fra API-et.
+For å ta i bruk pakkene i en R-fil, last de inn øverst i programmet:
+
+    library(tidyverse)
+
+## Triks
 
 ### Piping
 
-Piping - hva er det!? Programkommandoer blir lettere menneskelesbare ved bruk av piping. Tidyverse bruker %&gt;% som pipesymbol. Den fungerer sånn:
+Piping - hva er det\!? Programkommandoer blir lettere menneskelesbare
+ved bruk av piping. Tidyverse bruker %\>% som pipesymbol. Den fungerer
+sånn:
 
     x %>% f() er det samme som f(x)
 
-Mer om dette i [magrittr-pakken](https://magrittr.tidyverse.org/), som er en del av Tidyverse.
+Mer om dette i [magrittr-pakken](https://magrittr.tidyverse.org/), som
+er en del av Tidyverse.
 
-Filformat og prosjekter
------------------------
+## Filformat og prosjekter
 
-I R kan vi skrive analysene i ulike formater:
+I R kan vi skrive R-kode i ulike filformater:
 
--   R-skript
--   Markdown
--   Notebook
+  - R-skript (ren kodetekst)
+  - Markdown (rapport, kan bli html, word, powerpoint o.l.)
+  - Notebook (gir html-dokument)
 
-Den mest brukervennlige for vårt formål er nok Notebook. Åpne RStudio og lag en Notebook-fil.
+Den mest brukervennlige for vårt formål er kanskje Notebook. Åpne
+RStudio og lag en Notebook-fil.
 
-Det er lurt å lage et eget prosjekt i RStudio som samler alle filer tilhørende analysen vi skal gjennomføre. Lagre derfor alle filer som tilhører prosjektet, inkludert CSV-filer, i den samme mappen.
+Det er lurt å lage et eget *prosjekt* i RStudio som samler alle filer
+tilhørende analysen vi skal gjennomføre. Lagre derfor alle filer som
+tilhører prosjektet, inkludert rådatafiler, i den samme mappen.
 
-Trafikkdataanalyser
-===================
+## Les mer
 
-Vi kan lese inn CSV-filer til R. Basert på innholdet, kan vi finne ut masse interessant!
+Nettet flommer over av tips, triks, blogger og dokumentasjon av R. En
+fin bok er [R for Data Science](https://r4ds.had.co.nz/) av Grolemund og
+Wickham.
 
-Råpasseringer
--------------
+# Trafikkdataanalyser
 
-Fra Datainn kan vi gjøre Exceleksport. Da får vi råpasseringer. For å lese inn en navngitt CSV-fil, gjør vi slik:
+For å lese inn en navngitt CSV-fil, gjør vi slik:
 
     innlest <- read.csv2("filnavn.csv")
 
-I R har vi da fått en "data.frame" som heter "innlest".
+I R har vi da fått et objekt av typen *data.frame* som heter “innlest”.
 
-Kontrollerte passeringer
-------------------------
+  - Lese inn data fra utstyrstester (read\_\*)
+  - Utforske, finne feil (Exploratory Data Analysis)
+    [DataExplorer](https://cran.r-project.org/web/packages/DataExplorer/vignettes/dataexplorer-intro.html)
+  - Vaske data (filter)
+  - Lage “likt” format fra ulike utstyrstyper (mutate, select)
+  - Sette sammen data (dplyr::left\_join)
+  - Analyser (summarise, ggplot)
 
-Via Kibana kan vi eksportere CSV-filer med kontrollerte passeringer.
+# Hente data fra trafikkdata-APIet
 
-Timetrafikk
------------
+Et kapittel for seg… :)
 
-Fra trafikkdata.no kan vi eksportere CSV-filer med ulike produkter. Mest relevant for analyser er time- og døgntrafikk.
+## Timetrafikk
 
-Hente data fra trafikkdata-APIet
-================================
+Fra trafikkdata.no kan vi eksportere CSV-filer eller hente rett fra
+API-et.
